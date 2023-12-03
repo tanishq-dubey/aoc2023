@@ -84,7 +84,6 @@ vals = {}
 
 for x in range(len(parsed_data)):
     for y in range(len(parsed_data[x])):
-        
         if (not str.isnumeric(parsed_data[x][y])) and parsed_data[x][y] !=  BLANK:
             n = gridCheck(parsed_data, x, y, BLANK)
             #pp([n, x, y, parsed_data[x][y]])
@@ -96,4 +95,23 @@ for x in range(len(parsed_data)):
 total = 0 
 for _, v in vals.items():
     total = total + v
+pp(total)
+
+# Pt 2
+total = 0
+
+for x in range(len(parsed_data)):
+    for y in range(len(parsed_data[x])):
+        if (not str.isnumeric(parsed_data[x][y])) and parsed_data[x][y] !=  BLANK:
+            n = gridCheck(parsed_data, x, y, BLANK)
+            ratio = 1
+            tmp = {}
+            for neighbor in n:
+                nn, pos = expandNumber(parsed_data, neighbor[0], neighbor[1])
+                tmp[pos] = nn
+            if len(tmp) == 2:
+                for _, v in tmp.items():
+                    ratio = v * ratio
+                total = total + ratio
+
 pp(total)
